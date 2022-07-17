@@ -1,0 +1,35 @@
+/*1*/SELECT * FROM customer WHERE country LIKE ('Canada');
+/*2*/SELECT country FROM customer ORDER BY country;
+/*3*/SELECT COUNT (*) AS all_orders FROM orders;
+/*4*/SELECT Max(total_amount) AS max_total_amount FROM orders;
+/*5*/SELECT SUM(total_amount) AS sum_of_total_amount FROM orders;
+/*6*/SELECT  SUM(total_amount) AS sum_of_total_amount_2014 FROM orders
+    WHERE order_date BETWEEN '2013.12.31' AND '2015.01.01';
+/*7*/SELECT AVG(total_amount) AS avg_of_total_amount FROM orders;
+SELECT AVG(total_amount) AS avg_of_total_amount
+     FROM orders JOIN customer ON orders.customer_id = customer.id;
+/*8*/SELECT AVG(total_amount) AS avg_of_total_amount, first_name FROM orders
+    LEFT JOIN customer ON orders.customer_id = customer.id GROUP BY customer.first_name;
+/*9*/SELECT * FROM customer WHERE  country IN ('Brazil', 'Spain');
+/*10*/ SELECT  * FROM orders WHERE order_date BETWEEN '2012.12.31' AND '2015.01.01'
+        GROUP BY orders.id HAVING total_amount <= 100.00;
+/*11*/ SELECT customer.first_name, customer.last_name, customer.country FROM customer
+        WHERE country IN ('Spain', 'France', 'Germany', 'Italy') ORDER BY country;
+/*12*/ SELECT DISTINCT customer.first_name, customer.last_name, customer.country, supplier.country
+       FROM customer, supplier WHERE
+       customer.country = supplier.country ORDER BY customer.first_name;
+/*13*/ SELECT * FROM customer WHERE customer.first_name LIKE 'Jo%';
+/*14*/ SELECT * FROM customer WHERE customer.first_name LIKE '%a'
+       GROUP BY customer.id HAVING LENGTH (first_name) = 4;
+/*15*/ SELECT country,  COUNT(*) AS all_customers FROM customer GROUP BY country;
+/*16*/ SELECT country,  COUNT(*) AS all_customers FROM customer GROUP BY country
+       ORDER BY all_countries DESC;
+/*17*/ SELECT SUM(total_amount) AS sum_of_total_amount, customer_id, COUNT(*)
+    AS all_customer_id FROM orders GROUP BY orders.customer_id
+     ORDER BY sum_of_total_amount;
+/*18*/ SELECT SUM(total_amount) AS sum_of_total_amount, customer_id, COUNT(*)
+    AS all_customer_id FROM orders GROUP BY orders.customer_id
+    HAVING COUNT(customer_id) >= 20;
+
+
+
